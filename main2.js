@@ -3,13 +3,13 @@ $(() => {
   createBoard();
   $('.board').on('click', '.blkPc', blkPieceSelection)
   $('.board').on('click', '.redPc', rdPieceSelection)
-  $('.board').on('click', '.pieceOff', validBMPiece)
+  $('.board').on('click', '.pieceOff', blkPieceSelection(validBMPiece))
   $('.board').on('click', '.pieceOff', validRDPiece)
 
 });
 
 var playerTurn;
-var positionX;
+//var positionX;
 //var $parentDiv;
 var clickNum;
 
@@ -69,6 +69,8 @@ function placePieces(){
 
 
 function blkPieceSelection(){
+  var positionX;
+
   if (playerTurn){
     $('.selected').removeClass("selected");
     $(this).addClass("selected");
@@ -78,6 +80,80 @@ function blkPieceSelection(){
     positionX = $('.square').index($parent);
     clickNum = true;
   }
+
+  function validBMPiece(){
+    if(clickNum && playerTurn){
+      let $sqPos = $('.square')
+      let sqPosition = $('.square').index($(this))
+      let $positionDif = sqPosition - positionX;
+
+      if ($positionDif%9 === 0 && $positionDif > 0){
+        if($positionDif/9 > 1){
+          let indexCheck1 = positionX + 9;
+          if($($sqPos[indexCheck1]).has('.redPc').length > 0){
+            let pieceMove = $('.selected').detach();
+            $($sqPos[sqPosition]).append(pieceMove);
+            $('.selected').parent().removeClass('pieceOff')
+            $('.selected').removeClass('selected');
+            $('.workCell').addClass('pieceOff')
+            .removeClass("workCell")
+            let $midRed = $($sqPos[indexCheck1]).children(":first-child");
+            $midRed.addClass('rmv');
+            let capturedRed = $('.rmv').remove();
+            clickNum = false;
+            playerTurn = false;
+          } else {
+            alert("invalid click")
+          }
+        }else{
+          let pieceMove = $('.selected').detach();
+          $($sqPos[sqPosition]).append(pieceMove);
+          $('.selected').parent().removeClass('pieceOff')
+          $('.selected').removeClass('selected');
+          $('.workCell').addClass('pieceOff')
+          .removeClass("workCell")
+          clickNum = false;
+          playerTurn = false
+        }
+      }else if ($positionDif%7 === 0 && $positionDif > 0){
+        if($positionDif/7 > 1){
+          let indexCheck2 = positionX + 7;
+          if($sqPos[indexCheck2].has('.redPc').length > 0){
+            let pieceMove = $('.selected').detach();
+            $($sqPos[sqPosition]).append(pieceMove);
+            $('.selected').parent().removeClass('pieceOff')
+            $('.selected').removeClass('selected');
+            $('.workCell').addClass('pieceOff')
+            .removeClass("workCell")
+            let $midRed = $($sqPos[indexCheck2]).children(":first-child");
+            $midRed.addClass('rmv');
+            let capturedRed = $('.rmv').remove();
+            clickedNum = false;
+            playerTurn = false
+          }else{
+            alert("invalid click")
+          }
+        }else{
+          let pieceMove = $('.selected').detach();
+          $($sqPos[sqPosition]).append(pieceMove);
+          $('.selected').parent().removeClass('pieceOff')
+          $('.selected').removeClass('selected');
+          $('.workCell').addClass('pieceOff')
+          .removeClass("workCell")
+          clickNum = false;
+          playerTurn = false
+        }
+
+      }else{
+        alert("invalid click")
+      }
+    }
+    let rdPcLeft = $('.redPc');
+    if(rdPcLeft.length = 0){
+      alert("Red Player Wins!")
+    }
+  }
+
 }
 
 function rdPieceSelection(){
@@ -92,80 +168,6 @@ function rdPieceSelection(){
     }
 }
 
-function validBMPiece(){
-  if(clickNum && playerTurn){
-  let $sqPos = $('.square')
-  let sqPosition = $('.square').index($(this))
-  let $positionDif = sqPosition - positionX;
-  
-  if ($positionDif%9 === 0 && $positionDif > 0){
-    if($positionDif/9 > 1){
-      let indexCheck1 = positionX + 9;
-        if($($sqPos[indexCheck1]).has('.redPc').length > 0){
-          let pieceMove = $('.selected').detach();
-          $($sqPos[sqPosition]).append(pieceMove);
-          $('.selected').parent().removeClass('pieceOff')
-          $('.selected').removeClass('selected');
-          $('.workCell').addClass('pieceOff')
-                        .removeClass("workCell")
-          let $midRed = $($sqPos[indexCheck1]).children(":first-child");
-          $midRed.addClass('rmv');
-          let capturedRed = $('.rmv').remove();
-          $($sqPos[indexCheck1]).addClass('pieceOff');
-          clickNum = false;
-          playerTurn = false;
-        } else {
-          alert("invalid click")
-        }
-    }else{
-          let pieceMove = $('.selected').detach();
-          $($sqPos[sqPosition]).append(pieceMove);
-          $('.selected').parent().removeClass('pieceOff')
-          $('.selected').removeClass('selected');
-          $('.workCell').addClass('pieceOff')
-                        .removeClass("workCell")
-          clickNum = false;
-          playerTurn = false
-          }
-  }else if ($positionDif%7 === 0 && $positionDif > 0){
-    if($positionDif/7 > 1){
-      let indexCheck2 = positionX + 7;
-        if($($sqPos[indexCheck2]).has('.redPc').length > 0){
-          let pieceMove = $('.selected').detach();
-          $($sqPos[sqPosition]).append(pieceMove);
-          $('.selected').parent().removeClass('pieceOff')
-          $('.selected').removeClass('selected');
-          $('.workCell').addClass('pieceOff')
-                        .removeClass("workCell")
-          let $midRed = $($sqPos[indexCheck2]).children(":first-child");
-          $midRed.addClass('rmv');
-          let capturedRed = $('.rmv').remove();
-          $($sqPos[indexCheck2]).addClass('pieceOff');
-          clickedNum = false;
-          playerTurn = false
-        }else{
-            alert("invalid click")
-          }
-      }else{
-            let pieceMove = $('.selected').detach();
-            $($sqPos[sqPosition]).append(pieceMove);
-            $('.selected').parent().removeClass('pieceOff')
-            $('.selected').removeClass('selected');
-            $('.workCell').addClass('pieceOff')
-                          .removeClass("workCell")
-            clickNum = false;
-            playerTurn = false
-            }
-
-  }else{
-    alert("invalid click")
-  }
-  }
-  let rdPcLeft = $('.redPc');
-  if(rdPcLeft.length = 0){
-    alert("Red Player Wins!")
-  }
-}
 
 
 function validRDPiece(){
@@ -174,7 +176,7 @@ function validRDPiece(){
   let sqPosition = $('.square').index($(this))
   let $positionDif = Math.abs(sqPosition - positionX);
 
-
+  console.log($sqPos)
 
   if ($positionDif%9 === 0 && $positionDif > 0){
     if($positionDif/9 > 1){
@@ -189,7 +191,6 @@ function validRDPiece(){
           let $midRed = $($sqPos[indexCheck3]).children(":first-child");
           $midRed.addClass('rmv');
           let capturedRed = $('.rmv').remove();
-          $($sqPos[indexCheck3]).addClass('pieceOff');
           clickNum = false;
           playerTurn = true;
         } else {
@@ -208,7 +209,9 @@ function validRDPiece(){
   }else if ($positionDif%7 === 0 && $positionDif > 0){
     if($positionDif/7 > 1){
       let indexCheck4 = positionX - 7;
-        if($($sqPos[indexCheck4]).has('.blkPc').length > 0){
+      console.log(indexCheck4)
+      debugger;
+        if($sqPos[indexCheck4].has('.blkPc').length > 0){
           let pieceMove = $('.selected').detach();
           $($sqPos[sqPosition]).append(pieceMove);
           $('.selected').parent().removeClass('pieceOff')
@@ -218,7 +221,6 @@ function validRDPiece(){
           let $midRed = $($sqPos[indexCheck4]).children(":first-child");
           $midRed.addClass('rmv');
           let capturedRed = $('.rmv').remove();
-          $($sqPos[indexCheck4]).addClass('pieceOff');
           clickedNum = false;
           playerTurn = true;
         }else{
