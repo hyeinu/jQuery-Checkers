@@ -1,0 +1,29 @@
+.square{
+  height: 50px;
+  width: 50px;
+  display: inline-block;
+  border: 1px solid #000;
+  vertical-align: top;
+}
+
+.row{
+  vertical-align: top;
+}
+
+.blackSquare{
+  background-color: black;
+}
+
+img{
+  width: 45px;
+  height: 45px;
+}
+
+.selected{
+  border: 1px solid indianred;
+  border-radius: 50%;
+}
+
+.remove{
+  background-color: red;
+}
