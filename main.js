@@ -161,7 +161,7 @@ function validBMPiece(){
     alert("invalid click")
   }
   }
-  let rdPcLeft = $('.redPc1');
+  let rdPcLeft = $('.redPc');
   if(rdPcLeft.length === 0){
     alert("Red Player Wins!")
   }
