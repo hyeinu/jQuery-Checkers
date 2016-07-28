@@ -97,7 +97,7 @@ function validBMPiece(){
   let $sqPos = $('.square')
   let sqPosition = $('.square').index($(this))
   let $positionDif = sqPosition - positionX;
-  
+
   if ($positionDif%9 === 0 && $positionDif > 0){
     if($positionDif/9 > 1){
       let indexCheck1 = positionX + 9;
@@ -161,8 +161,8 @@ function validBMPiece(){
     alert("invalid click")
   }
   }
-  let rdPcLeft = $('.redPc');
-  if(rdPcLeft.length = 0){
+  let rdPcLeft = $('.redPc1');
+  if(rdPcLeft.length === 0){
     alert("Red Player Wins!")
   }
 }
@@ -240,13 +240,12 @@ function validRDPiece(){
   }
   }
   let blkPcLeft = $('.blkPc');
-  if(blkPcLeft.length = 0){
+  if(blkPcLeft.length === 0){
     alert("Red Player Wins!")
   }
 }
 
 /*
-
 function gameEnd(player){
   if (player === true){
   alert("Player 1 Wins the Game")
